@@ -7,9 +7,9 @@
 #include <cstring>
 #include <istream>
 #include <complex>
-#include <ctime>
+
 using namespace std;
-const double max_acceleration = 7.0;//×î´ó¼õËÙ¶È£¨µÄ¾ø¶ÔÖµ£© 
+
 struct Point
 {
     double x, y;
@@ -23,11 +23,11 @@ struct Car
 {
     Point center;
     Vector Direction;
-    int rd;//road 
-    double acceleration=0;//¼ÓËÙ¶È 
+    int rd;
     Car(Point center=Point(0,0),Vector Direction=Point(0,0)):center(center),Direction(Direction)
     {
     }
+    double acceleration=0;
 };
 
 Vector operator + (Vector A, Vector B)
@@ -71,28 +71,27 @@ double Area2(Point A, Point B, Point C)
 {
     return Cross(B-A, C-A);
 }
-//cross+area2 ÇóÃæ»ı 
+
 Vector Rotate(Vector A, double rad)
 {
     return Vector(A.x*cos(rad)-A.y*sin(rad), A.x*sin(rad)+A.y*cos(rad));
 }
-//Ğı×ªÏòÁ¿ 
 // please make sure its not a zero vector!
-Vector Normal(Vector A)//Ğı×ª90¡ã²¢µ¥Î»»¯ 
+Vector Normal(Vector A)
 {
     double L = Length(A);
     return Vector(-A.y/L,A.x/L);
 }
-Vector Format(const Vector &A)//»»Ëãµ¥Î»ÏòÁ¿ 
+Vector Format(const Vector &A)
 {
     double L=Length(A);
     return Vector(A.x/L,A.y/L);
 }
 
-const double eps = 1e-10;//¾«¶È 
+const double eps = 1e-10;
 int dcmp(double x)
 {
-    if(fabs(x) < eps)//fabs=abs 
+    if(fabs(x) < eps)
         return 0;
     else
         return x < 0 ? -1 : 1;
@@ -102,26 +101,26 @@ bool operator == (const Point &a, const Point &b)
 {
     return dcmp(a.x-b.x)==0 && dcmp(a.y-b.y)==0;
 }
-Point read_point()//duliu input point
+Point read_point()
 {
     double x, y;
     cin >> x >> y;
     return Vector(x, y);
 }
-//??? 
-Point GetLineIntersection (Point P, Vector v, Point Q, Vector w)//½âÎöÊ½ 
+//
+Point GetLineIntersection (Point P, Vector v, Point Q, Vector w)
 {
     Vector u=P-Q;
     double t = Cross(w,u)/Cross(v,w);
     return P+v*t;
 }
-//F*ck CCF
-double DistanceToLine (Point P, Point A, Point B)//µãµ½Ö±Ïß¾àÀë 
+
+double DistanceToLine (Point P, Point A, Point B)
 {
     Vector v1 = B-A,v2=P-A;
     return fabs(Cross(v1,v2))/Length(v1);
 }
-double DistanceToSegment (Point P, Point A, Point B)//µãµ½Ïß¶Î¾àÀë 
+double DistanceToSegment (Point P, Point A, Point B)
 {
     if (A==B)
         return Length(P-A);
@@ -134,24 +133,24 @@ double DistanceToSegment (Point P, Point A, Point B)//µãµ½Ïß¶Î¾àÀë
         return fabs(Cross(v1,v2))/Length(v1);
 }
 
-Point GetLineProjection(const Point& P, const Point& A, const Point& B)//Ö±ÏßÍ¶Ó° 
+Point GetLineProjection(const Point& P, const Point& A, const Point& B)
 {
     Vector v = B - A;
     return A + v * (Dot(v, P - A) / Dot(v, v));
 }
 
-bool SegmentProperIntersection(const Point& a1, const Point& a2, const Point& b1, const Point& b2)//½»µã 
+bool SegmentProperIntersection(const Point& a1, const Point& a2, const Point& b1, const Point& b2)
 {
     double c1 = Cross(a2 - a1, b1 - a1), c2 = Cross(a2 - a1, b2 - a1),
     c3 = Cross(b2 - b1, a1 - b1), c4 = Cross(b2 - b1, a2 - b1);
     return dcmp(c1) * dcmp(c2) < 0 && dcmp(c3) * dcmp(c4) < 0;
 }
-//FUCKCCF 
-bool isPointOnSegment(const Point& p, const Point& a1, const Point& a2)//ÅĞ¶ÏµãÔÚÏß¶ÎÉÏ 
+
+bool isPointOnSegment(const Point& p, const Point& a1, const Point& a2)
 {
     return dcmp(Cross(a1 - p, a2 - p)) == 0 && dcmp(Dot(a1 - p, a2 - p)) < 0;
 }
-double PolygonArea(Point* p, int n)//Çó¶à±ßĞÎÃæ»ı£¬*pÎª¶ËµãÊı×é 
+double PolygonArea(Point* p, int n)
 {
     double area = 0;
     for (int i = 1; i < n - 1; i++)
@@ -159,7 +158,7 @@ double PolygonArea(Point* p, int n)//Çó¶à±ßĞÎÃæ»ı£¬*pÎª¶ËµãÊı×é
     return area / 2;
 }
 
-struct Circle//Ô² 
+struct Circle
 {
     Point c;
     double r;
@@ -169,14 +168,14 @@ struct Circle//Ô²
         return Point(c.x + cos(a) * r, c.y + sin(a) * r);
     }
 };
-Circle read_circle()//duliu input 
+Circle read_circle()
 {
     Circle C;
     scanf("%lf%lf%lf", &C.c.x, &C.c.y, &C.r);
     return C;
 }
-//ccfsbccfsbccfsbccfsbccfsbccfsbccfsbccfsbccfsbccfsbccfsbccfsbccfsbccfsbccfsbccfsbccfsbccfsbccfsbccfsbccfsbccfsbccfsbccfsb 
-int GetLineCircleIntersection(const Point& A, const Point& B, const Circle& C, vector<Point>& sol)//Ö±ÏßºÍÔ²µÄ½»µãÊıÁ¿ 
+
+int GetLineCircleIntersection(const Point& A, const Point& B, const Circle& C, vector<Point>& sol)
 {
     double d = DistanceToLine(C.c, A, B);
     int mode = dcmp(d - C.r);
@@ -194,7 +193,7 @@ int GetLineCircleIntersection(const Point& A, const Point& B, const Circle& C, v
     return 2;
 }
 
-int GetCircleCircleIntersection (Circle C1, Circle C2, vector<Point>& sol)//Á½¸öÔ²µÄ½»µãÊıÁ¿
+int GetCircleCircleIntersection (Circle C1, Circle C2, vector<Point>& sol)
 {
     if (C1.r < C2.r) swap(C1, C2);
     double D = Length(C1.c - C2.c);
@@ -212,8 +211,8 @@ int GetCircleCircleIntersection (Circle C1, Circle C2, vector<Point>& sol)//Á½¸ö
     sol.push_back(P2);
     return 2;
 }
-//€€¡ê 
-inline int GetTangents (const Point P, const Circle C, vector<Point>& v)//ÇĞÏß 
+
+inline int GetTangents (const Point P, const Circle C, vector<Point>& v)
 {
     Vector u = C.c - P;
     double dist = Length(u);
@@ -227,11 +226,6 @@ inline int GetTangents (const Point P, const Circle C, vector<Point>& v)//ÇĞÏß
     double x = sqrt(dist * dist - C.r * C.r);
     Circle C2(P, x);
     return GetCircleCircleIntersection(C, C2, v);
-}
-
-double min_decelarate_dis(double v, double a)
-{
-	return v * v / a / 2;
 }
 
 double site_x[20] =
@@ -276,20 +270,20 @@ double site_y[20] =
     };
 const int LEN_OF_SITES = 17;
 // from A to Q, 17 points in total
-//µÀÊ¿´ò¸æ 
+
 struct Road
 {
     int start;
     int end;
     Car first_car;
-	double lim_v;
+
     Road(int start, int end):start(start),end(end)
     {
     }
 };
-//shabiccf 
-Point sites[20];//µÀÂ·½»µã 
-Car cs[1005];//cs=cars 
+
+Point sites[20];
+Car cs[1005];
 
 Road roads[33] =
     {
@@ -343,7 +337,7 @@ const Vector TO_DOWN = Vector(0, -1);
 const Vector TO_LEFT = Vector(-1, 0);
 const Vector TO_RIGHT = Vector(1, 0);
 
-bool is_same_dir(Vector a, Vector b)//ÅĞ¶ÏÁ½¸öÏòÁ¿ÊÇ·ñÍ¬Ïò 
+bool is_same_dir(Vector a, Vector b)
 {
     if(Dot(a,b)==Length(a)*Length(b))
     {
@@ -366,133 +360,32 @@ bool is_out(Car vehicle)
     bool c5 = (vehicle.center.x >= RIGHT && is_same_dir(vehicle.Direction,TO_RIGHT));
     return (c1 || c2 || c3 || c4 || c5);
 }
-int num_of_car;
-#define nc num_of_car
+
 /*
 å°†æ¯ä¸ªè·¯æ®µçš„è½¦è¾†ä»å‰åˆ°åä¾æ¬¡æ’åºï¼Œç»„æˆä¸€ä¸ªé˜Ÿåˆ—
 é˜Ÿåˆ—ä¸­çš„å…ƒç´ ä¸º Car, æ¯ä¸ªå…ƒç´ éœ€è¦æœ‰ä¸€ä¸ªå‰é©± prev ä¸åç»§ next, è¿˜æœ‰ Car æœ¬èº«çš„å±æ€§, ä»¥åŠåˆ°è¾¾ä¸‹ä¸€ä¸ªè·¯å£çš„é¢„è®¡èŠ±è´¹æ—¶é—´ t
 æ¯éš”1ç§’æ›´æ–°ä¸€æ¬¡æ•°æ®
 */
-double point_dist(Point a,Point b)
-{
-	return sqrt((a.x-b.x)*(a.x-b.x)+(a.y-b.y)*(a.y-b.y));
-}
 
-struct cross
+Car get_first(int rd_number)
 {
-	int outrd[6];
-	int roadnumber;//µÀÂ·ÊıÁ¿ 
-}crosses[44];
+
+}// æ‰¾åˆ°è¯¥è·¯æ®µæœ€é å‰çš„ä¸€è¾†è½¦
 
 int get_num(int rd_number)
 {
-	int cnt=0;
-	for(int i=1;i<=nc;i++)
-	{
-		if(isPointOnSegment(cs[i].center,sites[roads[i].start],sites[roads[i].end])) cnt++;
-	}
-	return cnt;
-}// è¾“å‡ºè¯¥è·¯æ®µæœ‰å¤šå°‘è¾†è½¦
-double car_turning[1009],decelerate_time[1009];//¼ÇÂ¼Ã¿Á¾³µ»¹ĞèÒª¶àÉÙÊ±¼ä×ªÍä ÒÔ¼°»¹Òª¶àÉÙÊ±¼ä¼õËÙµ½0 
-Car get_first_start(int rd_number)
-{
-	Car nearest;
-	if(!get_num(rd_number)) return nearest;
-	double minn=998244353.0;
-	int mink=114514;
-	Vector dir=sites[roads[rd_number].start]-sites[roads[rd_number].end];
-	bool flag=0;
-	for(int i=1;i<=nc;i++)
-	{
-		if(isPointOnSegment(cs[i].center,sites[roads[i].start],sites[roads[i].end]))
-		{
-			if(minn>point_dist(cs[i].center,sites[roads[rd_number].start])&&Dot(dir,cs[i].Direction)>0)
-			{
-				mink=i;
-				minn=point_dist(cs[i].center,sites[roads[rd_number].start]);
-				nearest=cs[i];
-				flag=1;
-			}
-		}
-	}
-	return nearest;
-}// æ‰¾åˆ°è¯¥è·¯æ®µæœ€é å‰çš„ä¸€è¾†è½¦
 
-Car get_first_end(int rd_number)
-{
-	Car nearest;
-	if(!get_num(rd_number)) return nearest;
-	double minn=998244353.0;
-	int mink=114514;
-	Point dir=sites[roads[rd_number].start]-sites[roads[rd_number].end];
-	bool flag=0;
-	for(int i=1;i<=nc;i++)
-	{
-		if(isPointOnSegment(cs[i].center,sites[roads[i].start],sites[roads[i].end]))
-		{
-			if(minn>point_dist(cs[i].center,sites[roads[rd_number].end])&&Dot(dir,cs[i].Direction)<0)
-			{
-				mink=i;
-				minn=point_dist(cs[i].center,sites[roads[rd_number].end]);
-				nearest=cs[i];
-			}
-		}
-	}
-	return nearest;
-}// æ‰¾åˆ°è¯¥è·¯æ®µæœ€é å‰çš„ä¸€è¾†è½¦
-#define crossroads GetLineIntersection(roads[i].start,roads[i].end-roads[i].start,roads[j].start,roads[j].end-roads[j].start)
+}// è¾“å‡ºè¯¥è·¯æ®µæœ‰å¤šå°‘è¾†è½¦
+
 bool get_to_intersection(Car cr)
 {
-	for(int i=0;i<33;i++)
-		for(int j=i+1;i<33;j++)
-		{
-			if(crossroads==cr.center) return 1; 
-		}
-	return 0;
+
 }// åˆ¤æ–­è½¦è¾†æ˜¯å¦åˆ°è¾¾è·¯å£
 
-// 0.5s update ä¸€æ¬¡
-//roads 0~16ºáÏò 17~30×İÏò 3132Ğ±Ïò 
-struct turn
-{
-	int to_num;
-	double turn_time;
-};
 
-turn rand_turn(int crossroad_number,int status)//rand-status=0 µôÍ· rand-status=1 ÓÒ×ª rand-status=2 Ö±ĞĞ rand-status=3 ×ó×ª 
+// 1s update ä¸€æ¬¡
+void update()
 {
-	srand(time(0));
-	int rand_turn=rand()%4;
-	turn to_road;
-	to_road.to_num=crosses[crossroad_number].outrd[rand_turn];
-	int turnstatus=(rand_turn+4-status)%4;
-	if(turnstatus<2) to_road.turn_time=5.0;
-	else if(turnstatus==2) to_road.turn_time=1.5;
-	else to_road.turn_time=0.5; 
-	return to_road;
-}//ÓÒ×ª5s Ö±ĞĞ1.5s ×ó×ª0.5s µôÍ·5s
-
-double max_upspeed(double a,double s,double maxv) {
-	/*
-	Ë¼Â·£ºÏÈÅĞ¶ÏÏÈ¼ÓËÙµ½×î´óËÙ¶ÈÔÙÔÈËÙÄÜ·ñ¹ıºìµÆ
-	Èç¹û²»ĞĞ£¬ÔÙÅĞ¶ÏºÎÊ±¼õËÙ 
-	*/
-	double acc_dis = maxv * maxv / a / 2;
-	double acc_time = maxv / a;
-	double other_time = (s - acc_dis) / maxv;
-	if (acc_time + other_time <= red_time) {//ÄÜÍ¨¹ı Ìõ¼şÕ¼Î» 
-		return maxv;
-	}
-	double maxv_s = maxv / 2 * (maxv / a + maxv / max_decelaration);
-	if (maxv_s <= s) return maxv;
-	return sqrt(s * 2 / (1 / a + 1 / max_decelaration));
-} 
-
-void update()//0.5second
-{
-	//todos: how to judge whether a car can pass a traffic light
-	//       how to update the variable 'done'
-	bool done=0;
     // ä» get_first(...) ä»å‰å¾€åæ›´æ–°
         // å‡å¦‚è‡ªå·±ä¸æ˜¯ prev
             // å‡å¦‚ prev éœ€è¦å‡é€Ÿ
@@ -510,65 +403,8 @@ void update()//0.5second
                         // ç»¿ç¯äº®åä»¥æœ€å¤§åŠ é€Ÿåº¦è¿›è¡Œä¸‹é¢çš„æ“ä½œ
                     // ä¸éœ€è¦ï¼šæ­£å¸¸æ›´æ–°
                         // å‡å¦‚åœ¨ 1s å†…èƒ½åˆ°è¾¾è·¯å£(get_to_intersection), æ­£å¸¸è½¬å¼¯å¹¶è¿›å…¥å¦ä¸€æ¡è·¯æ®µé˜Ÿåˆ—æœ«å°¾
-	while(!done)
-	{
-		for(int i=0;i<33;i++)//across
-		{
-			for(int j=i+1;j<33;j++)//not across
-			{
-				if(!isPointOnSegment(crossroads,roads[i].start,roads[i].end)||!isPointOnSegment(crossroads,roads[j].start,roads[j].end)) continue;//²»´æÔÚµÄ½»µã£¨½»µã´æÔÚÓÚÏß¶ÎÍâ£© 
-				Point dir = sites[roads[i].start]-sites[roads[i].end];
-				if(crossroads == roads[i].start)
-				{
-					for(int k=1;k<=nc;k++)
-					{
-						if(isPointOnSegment(cs[k].center,sites[roads[i].start],sites[roads[i].end])&&Dot(dir,cs[k].Direction)>0&&car_turning[k]==0)//×¼±¸×ªÍä 
-						{
-							if(get_to_intersection(cs[k]))
-							{
-								int crsrd_num,sta;
-								for(int z=0;z<20;z++)
-									if(sites[z]==crossroads)
-									{
-										crsrd_num=z;
-										break;
-									}
-								for(int z=0;z<4;z++)
-								{
-									if(i==crosses[crsrd_num].outrd[z])
-									{
-										sta=z;
-										break;
-									}
-								}
-								turn Turning=rand_turn(crsrd_num,sta);
-								car_turning[k]=Turning.turn_time;
-								cs[k].rd=Turning.to_num;
-								if(crossroads == sites[roads[cs[k].rd].start]) cs[k].Direction=sites[roads[cs[k].rd].end]-sites[roads[cs[k].rd].start];
-								else cs[k].Direction=sites[roads[cs[k].rd].start]-sites[roads[cs[k].rd].end];
-							}
-						}
-						else if (isPointOnSegment(cs[i].center, sites[roads[i].start], sites[roads[i].end]) && Dot(dir, cs[i].Direction) > 0 && car_turning[i] != 0) {
-							car_turning[i] -= 0.5;
-						}
-						else {
-							if ( /*ÄÜÍ¨¹ı*/ 1) { // ºìÂÌµÆÄÜÍ¨¹ı Ìõ¼şÕ¼Î» 
-								cs[k].center = cs[k].center + (cs[k].Direction / 2); 
-							}
-							else { // ÎŞ·¨Í¨¹ı£¬¼õËÙ 
-								if (decelerate_time[k]>0) {
-									cs[k].Direction = cs[k].Direction * (Length(cs[k].Direction) + max_acceleration) / Length(cs[k].Direction);
-								}
-								if (point_dist(cs[k].center, sites[roads[i].start]) <= min_decelarate_dis(Length(cs[k].Direction), max_acceleration)) {
-									decelerate_time[k] = Length(cs[k].Direction), max_acceleration;
-								}
-							} 
-						}
-					}
-				}
-			}
-		}
-	}
+
+
 }
 
 /*
@@ -606,12 +442,7 @@ int main()
     // {
     //     cout <<char(65+i)<<"\t"<< sites[i].x << "\t" << sites[i].y << endl;
     // }
-	for(int i = 0; i < 3; i++) {
-		roads[i].lim_v = 70.0 / 3.6;
-	}
-	for(int i = 3; i < 33; i++) {
-		roads[i].lim_v = 50.0 / 3.6;
-	}
+
     Car test(sites[14],Point(3.3,0));
     // cout << test.center.x << endl
     //      << test.center.y << endl

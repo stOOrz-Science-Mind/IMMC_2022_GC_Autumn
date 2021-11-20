@@ -24,10 +24,10 @@ struct Car
     Point center;
     Vector Direction;
     int rd;//road 
-    double acceleration=0;//¼ÓËÙ¶È 
     Car(Point center=Point(0,0),Vector Direction=Point(0,0)):center(center),Direction(Direction)
     {
     }
+    double acceleration=0;//¼ÓËÙ¶È 
 };
 
 Vector operator + (Vector A, Vector B)
@@ -282,7 +282,7 @@ struct Road
     int start;
     int end;
     Car first_car;
-	double lim_v;
+
     Road(int start, int end):start(start),end(end)
     {
     }
@@ -472,26 +472,8 @@ turn rand_turn(int crossroad_number,int status)//rand-status=0 µôÍ· rand-status=
 	return to_road;
 }//ÓÒ×ª5s Ö±ĞĞ1.5s ×ó×ª0.5s µôÍ·5s
 
-double max_upspeed(double a,double s,double maxv) {
-	/*
-	Ë¼Â·£ºÏÈÅĞ¶ÏÏÈ¼ÓËÙµ½×î´óËÙ¶ÈÔÙÔÈËÙÄÜ·ñ¹ıºìµÆ
-	Èç¹û²»ĞĞ£¬ÔÙÅĞ¶ÏºÎÊ±¼õËÙ 
-	*/
-	double acc_dis = maxv * maxv / a / 2;
-	double acc_time = maxv / a;
-	double other_time = (s - acc_dis) / maxv;
-	if (acc_time + other_time <= red_time) {//ÄÜÍ¨¹ı Ìõ¼şÕ¼Î» 
-		return maxv;
-	}
-	double maxv_s = maxv / 2 * (maxv / a + maxv / max_decelaration);
-	if (maxv_s <= s) return maxv;
-	return sqrt(s * 2 / (1 / a + 1 / max_decelaration));
-} 
-
 void update()//0.5second
 {
-	//todos: how to judge whether a car can pass a traffic light
-	//       how to update the variable 'done'
 	bool done=0;
     // ä» get_first(...) ä»å‰å¾€åæ›´æ–°
         // å‡å¦‚è‡ªå·±ä¸æ˜¯ prev
@@ -606,12 +588,7 @@ int main()
     // {
     //     cout <<char(65+i)<<"\t"<< sites[i].x << "\t" << sites[i].y << endl;
     // }
-	for(int i = 0; i < 3; i++) {
-		roads[i].lim_v = 70.0 / 3.6;
-	}
-	for(int i = 3; i < 33; i++) {
-		roads[i].lim_v = 50.0 / 3.6;
-	}
+
     Car test(sites[14],Point(3.3,0));
     // cout << test.center.x << endl
     //      << test.center.y << endl
