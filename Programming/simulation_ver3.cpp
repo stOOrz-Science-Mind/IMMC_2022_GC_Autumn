@@ -472,22 +472,6 @@ turn rand_turn(int crossroad_number,int status)//rand-status=0 掉头 rand-status=
 	return to_road;
 }//右转5s 直行1.5s 左转0.5s 掉头5s
 
-double max_upspeed(double a,double s,double maxv) {
-	/*
-	思路：先判断先加速到最大速度再匀速能否过红灯
-	如果不行，再判断何时减速 
-	*/
-	double acc_dis = maxv * maxv / a / 2;
-	double acc_time = maxv / a;
-	double other_time = (s - acc_dis) / maxv;
-	if (acc_time + other_time <= red_time) {//能通过 条件占位 
-		return maxv;
-	}
-	double maxv_s = maxv / 2 * (maxv / a + maxv / max_decelaration);
-	if (maxv_s <= s) return maxv;
-	return sqrt(s * 2 / (1 / a + 1 / max_decelaration));
-} 
-
 void update()//0.5second
 {
 	//todos: how to judge whether a car can pass a traffic light

@@ -31,5 +31,9 @@ int main()
     {
         cout << "Road(" << start[i] << ", " << endd[i] << ")," << endl;
     }
+    // for (int i = 0; i < 33;i++)
+    // {
+    //     cout << endd[i] << endl;
+    // }
     return 0;
 }

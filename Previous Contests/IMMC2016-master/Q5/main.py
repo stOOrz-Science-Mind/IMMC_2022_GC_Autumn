@@ -32,7 +32,7 @@ class Decition(QtGui.QMainWindow, Ui_MainWindow, QtGui.QTableWidget):
         if A > C*(R+1):
             Committee = QtGui.QTableWidgetItem("Should")
             Insurer = QtGui.QTableWidgetItem("Should not")
-        ResultA = QtGui.QTableWidgetItem("%d" %A)
+        ResultA = QtGui.QTableWidgetItem("%d" %A)a
         self.ResultTable.insertRow(0)
         self.ResultTable.setItem(0, 0, ResultA)
         self.ResultTable.setItem(0, 1, Committee)
