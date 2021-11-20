@@ -23,6 +23,7 @@ struct Car
 {
     Point center;
     Vector Direction;
+    int rd;
     Car(Point center=Point(0,0),Vector Direction=Point(0,0)):center(center),Direction(Direction)
     {
     }
@@ -269,7 +270,57 @@ double site_y[20] =
     };
 const int LEN_OF_SITES = 17;
 // from A to Q, 17 points in total
+
+struct Road
+{
+    int start;
+    int end;
+    Car first_car;
+
+    Road(int start, int end):start(start),end(end)
+    {
+    }
+};
+
 Point sites[20];
+Car cs[1005];
+
+Road roads[33] =
+    {
+        Road(2, 1),
+        Road(1, 0),
+        Road(3, 4),
+        Road(4, 5),
+        Road(6, 7),
+        Road(7, 8),
+        Road(8, 7),
+        Road(7, 6),
+        Road(9, 10),
+        Road(10, 11),
+        Road(11, 10),
+        Road(10, 9),
+        Road(12, 13),
+        Road(13, 14),
+        Road(15, 16),
+        Road(0, 3),
+        Road(3, 6),
+        Road(1, 4),
+        Road(4, 7),
+        Road(7, 10),
+        Road(10, 13),
+        Road(13, 16),
+        Road(16, 13),
+        Road(13, 10),
+        Road(10, 7),
+        Road(7, 4),
+        Road(4, 1),
+        Road(15, 12),
+        Road(2, 5),
+        Road(5, 8),
+        Road(8, 11),
+        Road(16, 14),
+        Road(14, 11)
+    };
 
 const double UPPER = 295.59;
 const double LOWER = 0.00;
@@ -307,8 +358,71 @@ bool is_out(Car vehicle)
     bool c3 = (vehicle.center.x >= SEP && vehicle.center.x <= RIGHT && vehicle.center.y < 0.49 * vehicle.center.x - 73.8 && is_same_dir(vehicle.Direction,TO_RIGHT));
     bool c4 = (vehicle.center.x <= LEFT && is_same_dir(vehicle.Direction,TO_LEFT));
     bool c5 = (vehicle.center.x >= RIGHT && is_same_dir(vehicle.Direction,TO_RIGHT));
-    return (c1 || (c2 || (c3 || (c4 || c5))));
+    return (c1 || c2 || c3 || c4 || c5);
 }
+
+/*
+将每个路段的车辆从前到后依次排序，组成一个队列
+队列中的元素为 Car, 每个元素需要有一个前驱 prev 与后继 next, 还有 Car 本身的属性, 以及到达下一个路口的预计花费时间 t
+每隔1秒更新一次数据
+*/
+
+Car get_first(int rd_number)
+{
+
+}// 找到该路段最靠前的一辆车
+
+int get_num(int rd_number)
+{
+
+}// 输出该路段有多少辆车
+
+bool get_to_intersection(Car cr)
+{
+
+}// 判断车辆是否到达路口
+
+
+// 1s update 一次
+void update()
+{
+    // 从 get_first(...) 从前往后更新
+        // 假如自己不是 prev
+            // 假如 prev 需要减速
+                // 根据公式1计算该车的相应最大减速度，并把所有与该车有关的状态更新
+            // 假如 prev 正常行驶
+                // 计算 t 并判断自己是否需要减速
+                    // 假如需要减速, 更新减速度为公式2
+        // 假如自己是 prev
+            // 随机数看转什么弯（在允许的车向范围内，且不准掉头）
+                // 小转弯直接转，添加到另一个路段队列的末尾
+                // 判断自己是否需要减速
+                    // 需要
+                        // 以最大减速度减速即可
+                        // 等待绿灯
+                        // 绿灯亮后以最大加速度进行下面的操作
+                    // 不需要：正常更新
+                        // 假如在 1s 内能到达路口(get_to_intersection), 正常转弯并进入另一条路段队列末尾
+
+
+}
+
+/*
+引入智能路灯后：
+1. 刹车距离约为 16m，即路口必须 lidar 全覆盖
+2. 对于路段中没有 lidar 覆盖的车辆，按照匀速行驶
+3. wifi 分配按照二分图匹配算法来
+*/
+
+
+
+
+
+
+
+
+
+
 
 int main()
 {
