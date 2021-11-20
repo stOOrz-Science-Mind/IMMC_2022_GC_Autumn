@@ -88,10 +88,11 @@ Vector Format(const Vector &A) {
 const double eps = 1e-10;
 
 int dcmp(double x) {
-    if (fabs(x) < eps)
+    if (fabs(x) < eps) {
         return 0;
-    else
+    } else {
         return x < 0 ? -1 : 1;
+    }
 }
 
 bool operator==(const Point &a, const Point &b) {
@@ -120,12 +121,13 @@ double DistanceToSegment(Point P, Point A, Point B) {
     if (A == B)
         return Length(P - A);
     Vector v1 = B - A, v2 = P - A, v3 = P - B;
-    if (dcmp(Dot(v1, v2)) < 0)
+    if (dcmp(Dot(v1, v2)) < 0) {
         return Length(v2);
-    else if (dcmp(Dot(v1, v3)) > 0)
+    } else if (dcmp(Dot(v1, v3)) > 0) {
         return Length(v3);
-    else
+    } else {
         return fabs(Cross(v1, v2)) / Length(v1);
+    }
 }
 
 Point GetLineProjection(const Point &P, const Point &A, const Point &B) {
@@ -145,8 +147,9 @@ bool isPointOnSegment(const Point &p, const Point &a1, const Point &a2) {
 
 double PolygonArea(Point *p, int n) {
     double area = 0;
-    for (int i = 1; i < n - 1; i++)
+    for (int i = 1; i < n - 1; i++) {
         area += Cross(p[i] - p[0], p[i + 1] - p[0]);
+    }
     return area / 2;
 }
 
@@ -170,7 +173,9 @@ Circle read_circle() {
 int GetLineCircleIntersection(const Point &A, const Point &B, const Circle &C, vector <Point> &sol) {
     double d = DistanceToLine(C.c, A, B);
     int mode = dcmp(d - C.r);
-    if (mode > 0) return 0;
+    if (mode > 0) {
+        return 0;
+    }
     Point P = GetLineProjection(C.c, A, B);
     if (mode == 0) {
         sol.push_back(P);
@@ -186,17 +191,24 @@ int GetLineCircleIntersection(const Point &A, const Point &B, const Circle &C, v
 int GetCircleCircleIntersection(Circle C1, Circle C2, vector <Point> &sol) {
     if (C1.r < C2.r) swap(C1, C2);
     double D = Length(C1.c - C2.c);
-    if (dcmp(D) == 0)
+    if (dcmp(D) == 0) {
         return dcmp(C1.r - C2.r) == 0 ? -1 : 0;
-    if (dcmp(C1.r + C2.r - D) < 0) return 0;
-    if (dcmp(fabs(C1.r - C2.r) - D) > 0) return 0;
+    }
+    if (dcmp(C1.r + C2.r - D) < 0) {
+        return 0;
+    }
+    if (dcmp(fabs(C1.r - C2.r) - D) > 0) {
+        return 0;
+    }
 
     double d1 = ((C1.r * C1.r - C2.r * C2.r) / D + D) / 2;
     double x = sqrt(C1.r * C1.r - d1 * d1);
     Point O = C1.c + Format(C2.c - C1.c) * d1;
     Point P1 = O + Normal(O - C2.c) * x, P2 = O - Normal(O - C2.c) * x;
     sol.push_back(P1);
-    if (P1 == P2) return 1;
+    if (P1 == P2) {
+        return 1;
+    }
     sol.push_back(P2);
     return 2;
 }
@@ -350,17 +362,17 @@ bool is_out(Car vehicle) {
 每隔1秒更新一次数据
 */
 
-Car get_first(int rd_number) {
+Car get_first(int rd_number) { // 找到该路段最靠前的一辆车
+    ;
+}
 
-}// 找到该路段最靠前的一辆车
+int get_num(int rd_number) { // 输出该路段有多少辆车
+    ;
+}
 
-int get_num(int rd_number) {
-
-}// 输出该路段有多少辆车
-
-bool get_to_intersection(Car cr) {
-
-}// 判断车辆是否到达路口
+bool get_to_intersection(Car cr) { // 判断车辆是否到达路口
+    ;
+}
 
 
 // 1s update 一次
