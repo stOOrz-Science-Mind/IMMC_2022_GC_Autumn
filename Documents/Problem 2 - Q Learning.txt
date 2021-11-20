@@ -1,0 +1,28 @@
+def Get_State(Distribution):
+    Cost = $5000\cdot (\text{Lampposts with only LiDAR})+3000\cdot (\text{Lampposts with only WiFi}) +10000\cdot (\text{Lampposts with both})$
+    # Formula of calculating coverage: $\dfrac{S_{\mathrm{road\_}  \mathrm{covered}}}{S_{\mathrm{roads}}}$​​
+    State = $\sum_{\begin{array}{c}
+	\mathrm{road} \mathrm{type}\xlongequal{\mathrm{def}}\mathrm{r}\in \left\{ \mathrm{Inter}\sec\mathrm{tion}, \mathrm{Normal} \right\}\\
+	\mathrm{device}\xlongequal{\mathrm{def}}\mathrm{d}\in \left\{ \mathrm{LiDAR}, \mathrm{WiFi} \right\}\\
+\end{array}}{\frac{\mathrm{r}\cdot \mathrm{d}}{\mathrm{Cost}}}=\frac{k_1\left( a_1+b_1 \right) +k_2\left( a_2+b_2 \right)}{P}$
+    return State
+L = Set of all SmartLamps
+done = False
+initialize q_table, LEARNING_RATE and DISCOUN
+while not done:
+    update q_table
+    for lamp in L:
+        while in attempt to change the configuration of lamp:
+            if Get_State(new_distribution) > Get_State(current_distribution):
+                change distribution
+            else remain
+        previous loop $\rightarrow$ find q_table[max_distribution] and corresponding action
+        current_distribution = q_table[current_state + action]
+        new_distribution = (1 - LEARNING_RATE) * current_distribution + LEARNING_RATE * ($\delta Get_State$ + DISCOUNT * max_distribution) // 這行打成LaTeX
+        q_table[current_state + action] = new_distribution
+    conduct the loop continuously until the previous loop doesn't alter anything:
+        done = True
+
+
+​	
+

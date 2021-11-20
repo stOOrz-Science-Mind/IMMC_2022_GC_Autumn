@@ -1,9 +1,9 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021) (preloaded format=xelatex 2021.10.27)  16 NOV 2021 17:35
+This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021) (preloaded format=xelatex 2021.10.27)  21 NOV 2021 01:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**Template.tex
-(./Template.tex
+**22091106.tex
+(./22091106.tex
 LaTeX2e <2021-06-01> patch level 1
 L3 programming layer <2021-10-18>
 (/usr/local/texlive/2021/texmf-dist/tex/latex/base/article.cls
@@ -812,6 +812,26 @@ LaTeX Font Info:    Redeclaring math symbol \mathsterling on input line 325.
 (/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/amssymb.sty
 Package: amssymb 2013/01/14 v3.01 AMS font symbols
 )
+(/usr/local/texlive/2021/texmf-dist/tex/latex/extarrows/extarrows.sty
+Package: extarrows 2020/03/12 v1.2.0 Some extensible arrows
+)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/algorithms/algorithm.sty
+Invalid UTF-8 byte or sequence at line 11 replaced by U+FFFD.
+Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
+nment
+\@float@every@algorithm=\toks43
+\c@algorithm=\count355
+)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/algorithms/algorithmic.sty
+Invalid UTF-8 byte or sequence at line 11 replaced by U+FFFD.
+Package: algorithmic 2009/08/24 v0.1 Document Style `algorithmic'
+\c@ALC@unique=\count356
+\c@ALC@line=\count357
+\c@ALC@rem=\count358
+\c@ALC@depth=\count359
+\ALC@tlm=\skip89
+\algorithmicindent=\skip90
+)
 (/usr/local/texlive/2021/texmf-dist/tex/latex/newtx/newtxmath.sty
 Package: newtxmath 2021/10/21 v1.659
 
@@ -825,13 +845,13 @@ Package: ifluatex 2019/10/25 v1.5 ifluatex legacy package. Use iftex instead.
 (/usr/local/texlive/2021/texmf-dist/tex/latex/oberdiek/centernot.sty
 Package: centernot 2016/05/16 v1.4 Centers the not symbol horizontally (HO)
 )
-\tx@cntz=\count355
+\tx@cntz=\count360
 
 (/usr/local/texlive/2021/texmf-dist/tex/generic/kastrup/binhex.tex)
-\tx@Isdigit=\count356
-\tx@IsAlNum=\count357
-\tx@tA=\toks43
-\tx@tB=\toks44
+\tx@Isdigit=\count361
+\tx@IsAlNum=\count362
+\tx@tA=\toks44
+\tx@tB=\toks45
 \tx@su=\read3
 LaTeX Font Info:    Redeclaring symbol font `operators' on input line 362.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
@@ -911,7 +931,7 @@ LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
 LaTeX Font Info:    Overwriting symbol font `largesymbolsTXA' in version `bold'
 
 (Font)                  U/ntxexa/m/n --> U/ntxexa/b/n on input line 631.
-\tx@sbptoks=\toks45
+\tx@sbptoks=\toks46
 LaTeX Font Info:    Redeclaring math delimiter \lfloor on input line 854.
 LaTeX Font Info:    Redeclaring math delimiter \rfloor on input line 855.
 LaTeX Font Info:    Redeclaring math delimiter \lceil on input line 856.
@@ -930,62 +950,62 @@ LaTeX Info: Redefining \not on input line 2947.
 LaTeX Info: Redefining \textsquare on input line 2977.
 LaTeX Info: Redefining \openbox on input line 2979.
 )
-\c@thm=\count358
-\c@theorem=\count359
-\c@definition=\count360
-Package hyperref Info: Option `colorlinks' set `false' on input line 105.
+\c@thm=\count363
+\c@theorem=\count364
+\c@definition=\count365
+Package hyperref Info: Option `colorlinks' set `false' on input line 108.
 
-(./Template.aux)
-\openout1 = `Template.aux'.
+(./22091106.aux)
+\openout1 = `22091106.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/ntxmi/m/it on input line 115.
+LaTeX Font Info:    Checking defaults for OML/ntxmi/m/it on input line 117.
 LaTeX Font Info:    Trying to load font information for OML+ntxmi on input line
- 115.
+ 117.
 
 (/usr/local/texlive/2021/texmf-dist/tex/latex/newtx/omlntxmi.fd
 File: omlntxmi.fd 2015/08/25 Fontinst v1.933 font definitions for OML/ntxmi.
 )
-LaTeX Font Info:    ... okay on input line 115.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 115.
-LaTeX Font Info:    ... okay on input line 115.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 115.
-LaTeX Font Info:    ... okay on input line 115.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 115.
-LaTeX Font Info:    ... okay on input line 115.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 115.
-LaTeX Font Info:    ... okay on input line 115.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 115.
-LaTeX Font Info:    ... okay on input line 115.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 115.
-LaTeX Font Info:    ... okay on input line 115.
-LaTeX Font Info:    Checking defaults for U/ntxexa/m/n on input line 115.
+LaTeX Font Info:    ... okay on input line 117.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 117.
+LaTeX Font Info:    ... okay on input line 117.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 117.
+LaTeX Font Info:    ... okay on input line 117.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 117.
+LaTeX Font Info:    ... okay on input line 117.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 117.
+LaTeX Font Info:    ... okay on input line 117.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 117.
+LaTeX Font Info:    ... okay on input line 117.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 117.
+LaTeX Font Info:    ... okay on input line 117.
+LaTeX Font Info:    Checking defaults for U/ntxexa/m/n on input line 117.
 LaTeX Font Info:    Trying to load font information for U+ntxexa on input line 
-115.
+117.
 
 (/usr/local/texlive/2021/texmf-dist/tex/latex/newtx/untxexa.fd
 File: untxexa.fd 2012/04/16 Fontinst v1.933 font definitions for U/ntxexa.
 )
-LaTeX Font Info:    ... okay on input line 115.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 115.
-LaTeX Font Info:    ... okay on input line 115.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 115.
-LaTeX Font Info:    ... okay on input line 115.
-LaTeX Font Info:    Checking defaults for LMS/ntxsy/m/n on input line 115.
+LaTeX Font Info:    ... okay on input line 117.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 117.
+LaTeX Font Info:    ... okay on input line 117.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 117.
+LaTeX Font Info:    ... okay on input line 117.
+LaTeX Font Info:    Checking defaults for LMS/ntxsy/m/n on input line 117.
 LaTeX Font Info:    Trying to load font information for LMS+ntxsy on input line
- 115.
+ 117.
 
 (/usr/local/texlive/2021/texmf-dist/tex/latex/newtx/lmsntxsy.fd
 File: lmsntxsy.fd 2016/07/02 Fontinst v1.933 font definitions for LMS/ntxsy.
 )
-LaTeX Font Info:    ... okay on input line 115.
-LaTeX Font Info:    Checking defaults for LMX/ntxexx/m/n on input line 115.
+LaTeX Font Info:    ... okay on input line 117.
+LaTeX Font Info:    Checking defaults for LMX/ntxexx/m/n on input line 117.
 LaTeX Font Info:    Trying to load font information for LMX+ntxexx on input lin
-e 115.
+e 117.
 
 (/usr/local/texlive/2021/texmf-dist/tex/latex/newtx/lmxntxexx.fd
 File: lmxntxexx.fd 2016/07/03 Fontinst v1.933 font definitions for LMX/ntxexx.
 )
-LaTeX Font Info:    ... okay on input line 115.
+LaTeX Font Info:    ... okay on input line 117.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: float package is loaded.
 Package caption Info: hyperref package is loaded.
@@ -1031,7 +1051,7 @@ Package caption Info: End \AtBeginDocument code.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-Package hyperref Info: Link coloring OFF on input line 115.
+Package hyperref Info: Link coloring OFF on input line 117.
 (/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
 
@@ -1042,124 +1062,142 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 ty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count361
+\c@section@level=\count366
 )
-LaTeX Info: Redefining \ref on input line 115.
-LaTeX Info: Redefining \pageref on input line 115.
-LaTeX Info: Redefining \nameref on input line 115.
- (./Template.out) (./Template.out)
+LaTeX Info: Redefining \ref on input line 117.
+LaTeX Info: Redefining \pageref on input line 117.
+LaTeX Info: Redefining \nameref on input line 117.
+ (./22091106.out) (./22091106.out)
 \@outlinefile=\write3
-\openout3 = `Template.out'.
+\openout3 = `22091106.out'.
 
-\c@mv@tabular=\count362
-\c@mv@boldtabular=\count363
+\c@mv@tabular=\count367
+\c@mv@boldtabular=\count368
 LaTeX Font Info:    Trying to load font information for OT1+ntxtlf on input lin
-e 138.
+e 140.
 
 (/usr/local/texlive/2021/texmf-dist/tex/latex/newtx/ot1ntxtlf.fd
 File: ot1ntxtlf.fd 2021/05/24 v1.0 font definition file for OT1/ntx/tlf
 )
 LaTeX Font Info:    Font shape `OT1/ntxtlf/m/n' will be
-(Font)              scaled to size 12.0pt on input line 138.
+(Font)              scaled to size 12.0pt on input line 140.
 LaTeX Font Info:    Font shape `OT1/ntxtlf/m/n' will be
-(Font)              scaled to size 8.8pt on input line 138.
+(Font)              scaled to size 8.8pt on input line 140.
 LaTeX Font Info:    Font shape `OT1/ntxtlf/m/n' will be
-(Font)              scaled to size 6.6pt on input line 138.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 138
+(Font)              scaled to size 6.6pt on input line 140.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 140
 .
 
 (/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 138
+LaTeX Font Info:    Trying to load font information for U+msb on input line 140
 .
 
 (/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Trying to load font information for U+ntxmia on input line 
-138.
+140.
 
 (/usr/local/texlive/2021/texmf-dist/tex/latex/newtx/untxmia.fd
 File: untxmia.fd 2018/04/14 Fontinst v1.933 font definitions for U/ntxmia.
 )
 LaTeX Font Info:    Trying to load font information for U+ntxsym on input line 
-138.
+140.
 
 (/usr/local/texlive/2021/texmf-dist/tex/latex/newtx/untxsym.fd
 File: untxsym.fd 2015/03/20 Fontinst v1.933 font definitions for U/ntxsym.
 )
 LaTeX Font Info:    Trying to load font information for U+ntxsyc on input line 
-138.
+140.
 
 (/usr/local/texlive/2021/texmf-dist/tex/latex/newtx/untxsyc.fd
 File: untxsyc.fd 2012/04/12 Fontinst v1.933 font definitions for U/ntxsyc.
 )
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
-(Font)              scaled to size 10.95pt on input line 138.
+(Font)              scaled to size 10.95pt on input line 140.
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
-(Font)              scaled to size 24.88pt on input line 138.
+(Font)              scaled to size 24.88pt on input line 140.
 LaTeX Font Info:    Font shape `T1/ntxtlf/b/n' will be
-(Font)              scaled to size 24.88pt on input line 138.
+(Font)              scaled to size 24.88pt on input line 140.
 LaTeX Font Info:    Font shape `T1/ntxtlf/b/n' will be
-(Font)              scaled to size 12.0pt on input line 138.
+(Font)              scaled to size 12.0pt on input line 140.
 LaTeX Font Info:    Font shape `T1/ntxtlf/b/n' will be
-(Font)              scaled to size 10.95pt on input line 138.
+(Font)              scaled to size 10.95pt on input line 140.
  [1
 
 ]
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
-(Font)              scaled to size 20.74pt on input line 152.
+(Font)              scaled to size 20.74pt on input line 156.
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
-(Font)              scaled to size 14.4pt on input line 152.
+(Font)              scaled to size 14.4pt on input line 156.
 LaTeX Font Info:    Font shape `OT1/ntxtlf/m/n' will be
-(Font)              scaled to size 14.4pt on input line 152.
+(Font)              scaled to size 14.4pt on input line 156.
 LaTeX Font Info:    Font shape `OT1/ntxtlf/m/n' will be
-(Font)              scaled to size 10.5pt on input line 152.
+(Font)              scaled to size 10.5pt on input line 156.
 LaTeX Font Info:    Font shape `OT1/ntxtlf/m/n' will be
-(Font)              scaled to size 7.9pt on input line 152.
+(Font)              scaled to size 7.9pt on input line 156.
  [2]
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
-(Font)              scaled to size 17.28pt on input line 158.
+(Font)              scaled to size 17.28pt on input line 162.
 LaTeX Font Info:    Font shape `T1/ntxtlf/b/n' will be
-(Font)              scaled to size 17.28pt on input line 158.
+(Font)              scaled to size 17.28pt on input line 162.
 
-(./Template.toc)
+(./22091106.toc)
 \tf@toc=\write4
-\openout4 = `Template.toc'.
+\openout4 = `22091106.toc'.
 
  [3
 
 ]
 LaTeX Font Info:    Font shape `T1/ntxtlf/b/n' will be
-(Font)              scaled to size 14.4pt on input line 168.
-File: 1.1 GRAPHICS.jpg Graphic file (type bmp)
-<1.1 GRAPHICS.jpg>
+(Font)              scaled to size 14.4pt on input line 171.
+File: diagram.jpg Graphic file (type bmp)
+<diagram.jpg>
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/it' will be
-(Font)              scaled to size 10.95pt on input line 175.
- [1] [2]
+(Font)              scaled to size 10.95pt on input line 181.
 LaTeX Font Info:    Trying to load font information for TS1+ntxtlf on input lin
-e 204.
+e 188.
 
 (/usr/local/texlive/2021/texmf-dist/tex/latex/newtx/ts1ntxtlf.fd
 File: ts1ntxtlf.fd 2015/01/18 v1.0 fd file for TS1/ntxtlf
 )
 LaTeX Font Info:    Font shape `TS1/ntxtlf/m/n' will be
-(Font)              scaled to size 12.0pt on input line 204.
- [3] [4]
-[5
+(Font)              scaled to size 12.0pt on input line 188.
+ [1] [2]
+[3]
+Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
+put line 262.
+LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
+(Font)              scaled to size 8.8pt on input line 266.
+LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
+(Font)              scaled to size 6.6pt on input line 266.
+Missing character: There is no ​ ("200B) in font ntx-Regular-tlf-t1!
+Missing character: There is no ​ ("200B) in font ntx-Regular-tlf-t1!
+ [4] [5] [6]
+File: map.jpg Graphic file (type bmp)
+<map.jpg>
 
-] (./Template.aux)
-Package rerunfilecheck Info: File `Template.out' has not changed.
-(rerunfilecheck)             Checksum: 69E9D2A95EF96C497038B77BD7152E11;1664.
+Overfull \hbox (25.23946pt too wide) in paragraph at lines 329--331
+ [] 
+ []
+
+[7
+
+] [8
+
+] (./22091106.aux)
+Package rerunfilecheck Info: File `22091106.out' has not changed.
+(rerunfilecheck)             Checksum: FAF5BE406F9C43899B18D409DE2A2C58;2393.
  ) 
 Here is how much of TeX's memory you used:
- 21694 strings out of 476473
- 402751 string characters out of 5816481
- 763667 words of memory out of 5000000
- 41741 multiletter control sequences out of 15000+600000
- 465744 words of font info for 113 fonts, out of 8000000 for 9000
+ 21945 strings out of 476473
+ 406353 string characters out of 5816481
+ 776392 words of memory out of 5000000
+ 41980 multiletter control sequences out of 15000+600000
+ 471354 words of font info for 115 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 90i,11n,97p,407b,398s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 90i,17n,97p,645b,877s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on Template.xdv (8 pages, 13760 bytes).
+Output written on 22091106.xdv (11 pages, 34020 bytes).

@@ -7,9 +7,10 @@
 #include <cstring>
 #include <istream>
 #include <complex>
+#include <ctime>
 
 using namespace std;
-
+const double max_acceleration = 7.0; // 最大减速度
 struct Point {
     double x, y;
 
@@ -22,12 +23,10 @@ typedef Point Vector;
 struct Car {
     Point center;
     Vector Direction;
-    int rd;
-
+    int rd;//road
+    double acceleration = 0; // 加速度
     Car(Point center = Point(0, 0), Vector Direction = Point(0, 0)) : center(center), Direction(Direction) {
     }
-
-    double acceleration = 0;
 };
 
 Vector operator+(Vector A, Vector B) {
@@ -70,25 +69,26 @@ double Area2(Point A, Point B, Point C) {
     return Cross(B - A, C - A);
 }
 
+// cross+area2 求面积
 Vector Rotate(Vector A, double rad) {
     return Vector(A.x * cos(rad) - A.y * sin(rad), A.x * sin(rad) + A.y * cos(rad));
 }
 
+// 旋转向量
 // please make sure its not a zero vector!
-Vector Normal(Vector A) {
+Vector Normal(Vector A) { // 旋转90°并单位化
     double L = Length(A);
     return Vector(-A.y / L, A.x / L);
 }
 
-Vector Format(const Vector &A) {
+Vector Format(const Vector &A) { // 换算单位向量
     double L = Length(A);
     return Vector(A.x / L, A.y / L);
 }
 
-const double eps = 1e-10;
-
+const double eps = 1e-10; // 精度
 int dcmp(double x) {
-    if (fabs(x) < eps) {
+    if (fabs(x) < eps) { // fabs=abs
         return 0;
     } else {
         return x < 0 ? -1 : 1;
@@ -99,27 +99,27 @@ bool operator==(const Point &a, const Point &b) {
     return dcmp(a.x - b.x) == 0 && dcmp(a.y - b.y) == 0;
 }
 
-Point read_point() {
+Point read_point() { // input point
     double x, y;
     cin >> x >> y;
     return Vector(x, y);
 }
 
-//
-Point GetLineIntersection(Point P, Vector v, Point Q, Vector w) {
+Point GetLineIntersection(Point P, Vector v, Point Q, Vector w) { // 解析式
     Vector u = P - Q;
     double t = Cross(w, u) / Cross(v, w);
     return P + v * t;
 }
 
-double DistanceToLine(Point P, Point A, Point B) {
+double DistanceToLine(Point P, Point A, Point B) { // 点到直线距离
     Vector v1 = B - A, v2 = P - A;
     return fabs(Cross(v1, v2)) / Length(v1);
 }
 
-double DistanceToSegment(Point P, Point A, Point B) {
-    if (A == B)
+double DistanceToSegment(Point P, Point A, Point B) { //点到线段距离
+    if (A == B){
         return Length(P - A);
+    }
     Vector v1 = B - A, v2 = P - A, v3 = P - B;
     if (dcmp(Dot(v1, v2)) < 0) {
         return Length(v2);
@@ -130,22 +130,22 @@ double DistanceToSegment(Point P, Point A, Point B) {
     }
 }
 
-Point GetLineProjection(const Point &P, const Point &A, const Point &B) {
+Point GetLineProjection(const Point &P, const Point &A, const Point &B) { // 直线投影
     Vector v = B - A;
     return A + v * (Dot(v, P - A) / Dot(v, v));
 }
 
-bool SegmentProperIntersection(const Point &a1, const Point &a2, const Point &b1, const Point &b2) {
+bool SegmentProperIntersection(const Point &a1, const Point &a2, const Point &b1, const Point &b2) { // 交点
     double c1 = Cross(a2 - a1, b1 - a1), c2 = Cross(a2 - a1, b2 - a1),
             c3 = Cross(b2 - b1, a1 - b1), c4 = Cross(b2 - b1, a2 - b1);
     return dcmp(c1) * dcmp(c2) < 0 && dcmp(c3) * dcmp(c4) < 0;
 }
 
-bool isPointOnSegment(const Point &p, const Point &a1, const Point &a2) {
+bool isPointOnSegment(const Point &p, const Point &a1, const Point &a2) { // 判断点在线段上
     return dcmp(Cross(a1 - p, a2 - p)) == 0 && dcmp(Dot(a1 - p, a2 - p)) < 0;
 }
 
-double PolygonArea(Point *p, int n) {
+double PolygonArea(Point *p, int n) { // 求多边形面积，*p为端点数组
     double area = 0;
     for (int i = 1; i < n - 1; i++) {
         area += Cross(p[i] - p[0], p[i + 1] - p[0]);
@@ -153,7 +153,7 @@ double PolygonArea(Point *p, int n) {
     return area / 2;
 }
 
-struct Circle {
+struct Circle { // 圆
     Point c;
     double r;
 
@@ -164,18 +164,16 @@ struct Circle {
     }
 };
 
-Circle read_circle() {
+Circle read_circle() { // input
     Circle C;
     scanf("%lf%lf%lf", &C.c.x, &C.c.y, &C.r);
     return C;
 }
 
-int GetLineCircleIntersection(const Point &A, const Point &B, const Circle &C, vector <Point> &sol) {
+int GetLineCircleIntersection(const Point &A, const Point &B, const Circle &C, vector <Point> &sol) { // 直线和圆的交点数量
     double d = DistanceToLine(C.c, A, B);
     int mode = dcmp(d - C.r);
-    if (mode > 0) {
-        return 0;
-    }
+    if (mode > 0) return 0;
     Point P = GetLineProjection(C.c, A, B);
     if (mode == 0) {
         sol.push_back(P);
@@ -188,32 +186,25 @@ int GetLineCircleIntersection(const Point &A, const Point &B, const Circle &C, v
     return 2;
 }
 
-int GetCircleCircleIntersection(Circle C1, Circle C2, vector <Point> &sol) {
+int GetCircleCircleIntersection(Circle C1, Circle C2, vector <Point> &sol) { // 两个圆的交点数量
     if (C1.r < C2.r) swap(C1, C2);
     double D = Length(C1.c - C2.c);
-    if (dcmp(D) == 0) {
+    if (dcmp(D) == 0)
         return dcmp(C1.r - C2.r) == 0 ? -1 : 0;
-    }
-    if (dcmp(C1.r + C2.r - D) < 0) {
-        return 0;
-    }
-    if (dcmp(fabs(C1.r - C2.r) - D) > 0) {
-        return 0;
-    }
+    if (dcmp(C1.r + C2.r - D) < 0) return 0;
+    if (dcmp(fabs(C1.r - C2.r) - D) > 0) return 0;
 
     double d1 = ((C1.r * C1.r - C2.r * C2.r) / D + D) / 2;
     double x = sqrt(C1.r * C1.r - d1 * d1);
     Point O = C1.c + Format(C2.c - C1.c) * d1;
     Point P1 = O + Normal(O - C2.c) * x, P2 = O - Normal(O - C2.c) * x;
     sol.push_back(P1);
-    if (P1 == P2) {
-        return 1;
-    }
+    if (P1 == P2) return 1;
     sol.push_back(P2);
     return 2;
 }
 
-inline int GetTangents(const Point P, const Circle C, vector <Point> &v) {
+inline int GetTangents(const Point P, const Circle C, vector <Point> &v) { // 切线
     Vector u = C.c - P;
     double dist = Length(u);
     int mode = dcmp(dist - C.r);
@@ -225,6 +216,10 @@ inline int GetTangents(const Point P, const Circle C, vector <Point> &v) {
     double x = sqrt(dist * dist - C.r * C.r);
     Circle C2(P, x);
     return GetCircleCircleIntersection(C, C2, v);
+}
+
+double min_decelarate_dis(double v, double a) {
+    return v * v / a / 2;
 }
 
 double site_x[20] =
@@ -268,19 +263,21 @@ double site_y[20] =
                 0.00
         };
 const int LEN_OF_SITES = 17;
+
 // from A to Q, 17 points in total
 
 struct Road {
     int start;
     int end;
     Car first_car;
+    double lim_v;
 
     Road(int start, int end) : start(start), end(end) {
     }
 };
 
-Point sites[20];
-Car cs[1005];
+Point sites[20]; // 道路交点
+Car cs[1005]; // cs=cars
 
 Road roads[33] =
         {
@@ -334,7 +331,7 @@ const Vector TO_DOWN = Vector(0, -1);
 const Vector TO_LEFT = Vector(-1, 0);
 const Vector TO_RIGHT = Vector(1, 0);
 
-bool is_same_dir(Vector a, Vector b) {
+bool is_same_dir(Vector a, Vector b) { // 判断两个向量是否同向
     if (Dot(a, b) == Length(a) * Length(b)) {
         return true;
     }
@@ -356,44 +353,194 @@ bool is_out(Car vehicle) {
     return (c1 || c2 || c3 || c4 || c5);
 }
 
+int num_of_car;
+#define nc num_of_car
+
 /*
 将每个路段的车辆从前到后依次排序，组成一个队列
 队列中的元素为 Car, 每个元素需要有一个前驱 prev 与后继 next, 还有 Car 本身的属性, 以及到达下一个路口的预计花费时间 t
 每隔1秒更新一次数据
 */
 
-Car get_first(int rd_number) { // 找到该路段最靠前的一辆车
-    ;
+double point_dist(Point a, Point b) {
+    return sqrt((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y));
 }
+
+struct cross {
+    int outrd[6];
+    int roadnumber; // 道路数量
+} crosses[44];
 
 int get_num(int rd_number) { // 输出该路段有多少辆车
-    ;
+    int cnt = 0;
+    for (int i = 1; i <= nc; i++) {
+        if (isPointOnSegment(cs[i].center, sites[roads[i].start], sites[roads[i].end])) cnt++;
+    }
+    return cnt;
 }
+double car_turning[1009], decelerate_time[1009]; // 记录每辆车还需要多少时间转弯 以及还要多少时间减速到0
+Car get_first_start(int rd_number) {
+    Car nearest;
+    if (!get_num(rd_number)) return nearest;
+    double minn = 998244353.0;
+    int mink = 114514;
+    Vector dir = sites[roads[rd_number].start] - sites[roads[rd_number].end];
+    bool flag = 0;
+    for (int i = 1; i <= nc; i++) {
+        if (isPointOnSegment(cs[i].center, sites[roads[i].start], sites[roads[i].end])) {
+            if (minn > point_dist(cs[i].center, sites[roads[rd_number].start]) && Dot(dir, cs[i].Direction) > 0) {
+                mink = i;
+                minn = point_dist(cs[i].center, sites[roads[rd_number].start]);
+                nearest = cs[i];
+                flag = 1;
+            }
+        }
+    }
+    return nearest;
+}
+
+Car get_first_end(int rd_number) {
+    Car nearest;
+    if (!get_num(rd_number)) return nearest;
+    double minn = 998244353.0;
+    int mink = 114514;
+    Point dir = sites[roads[rd_number].start] - sites[roads[rd_number].end];
+    bool flag = 0;
+    for (int i = 1; i <= nc; i++) {
+        if (isPointOnSegment(cs[i].center, sites[roads[i].start], sites[roads[i].end])) {
+            if (minn > point_dist(cs[i].center, sites[roads[rd_number].end]) && Dot(dir, cs[i].Direction) < 0) {
+                mink = i;
+                minn = point_dist(cs[i].center, sites[roads[rd_number].end]);
+                nearest = cs[i];
+            }
+        }
+    }
+    return nearest;
+}
+
+#define crossroads GetLineIntersection(roads[i].start,roads[i].end-roads[i].start,roads[j].start,roads[j].end-roads[j].start)
 
 bool get_to_intersection(Car cr) { // 判断车辆是否到达路口
-    ;
+    for (int i = 0; i < 33; i++)
+        for (int j = i + 1; i < 33; j++) {
+            if (crossroads == cr.center) return 1;
+        }
+    return 0;
 }
 
+// 0.5s update
+// roads 0~16 横向 17~30 纵向 3132 斜向
+struct turn {
+    int to_num;
+    double turn_time;
+};
 
-// 1s update 一次
-void update() {
-// 从 get_first(...) 从前往后更新
-//     假如自己不是 prev
-//         假如 prev 需要减速
-//             根据公式1计算该车的相应最大减速度，并把所有与该车有关的状态更新
-//         假如 prev 正常行驶
-//             计算 t 并判断自己是否需要减速
-//     假如需要减速, 更新减速度为公式2
-//         假如自己是 prev
-//             随机数看转什么弯（在允许的车向范围内，且不准掉头）
-//                 小转弯直接转，添加到另一个路段队列的末尾
-//                 判断自己是否需要减速
-//                     需要
-//                         以最大减速度减速即可
-//                         等待绿灯
-//                         绿灯亮后以最大加速度进行下面的操作
-//                     不需要：正常更新
-//                         假如在 1s 内能到达路口(get_to_intersection), 正常转弯并进入另一条路段队列末尾
+turn rand_turn(int crossroad_number, int status) { // rand-status=0 掉头 rand-status=1 右转 rand-status=2 直行 rand-status=3 左转
+    srand(time(0));
+    int rand_turn = rand() % 4;
+    turn to_road;
+    to_road.to_num = crosses[crossroad_number].outrd[rand_turn];
+    int turnstatus = (rand_turn + 4 - status) % 4;
+    if (turnstatus < 2) to_road.turn_time = 5.0;
+    else if (turnstatus == 2) to_road.turn_time = 1.5;
+    else to_road.turn_time = 0.5;
+    return to_road;
+}
+
+// 右转5s 直行1.5s 左转0.5s 掉头5s
+
+double max_upspeed(double a, double s, double maxv) {
+    /*
+    思路：先判断先加速到最大速度再匀速能否过红灯
+    如果不行，再判断何时减速
+    */
+    double acc_dis = maxv * maxv / a / 2;
+    double acc_time = maxv / a;
+    double other_time = (s - acc_dis) / maxv;
+    if (acc_time + other_time <= red_time) { // 能通过 条件占位
+        return maxv;
+    }
+    double maxv_s = maxv / 2 * (maxv / a + maxv / max_acceleration);
+    if (maxv_s <= s) return maxv;
+    return sqrt(s * 2 / (1 / a + 1 / max_acceleration));
+}
+
+void update() { // 0.5 second
+    //TODO: how to judge whether a car can pass a traffic light
+    //      how to update the variable 'done'
+    bool done = 0;
+    // 从 get_first(...) 从前往后更新
+    //     假如自己不是 prev
+    //         假如 prev 需要减速
+    //             根据公式1计算该车的相应最大减速度，并把所有与该车有关的状态更新
+    //         假如 prev 正常行驶
+    //             计算 t 并判断自己是否需要减速
+    //                 假如需要减速, 更新减速度为公式2
+    //     假如自己是 prev
+    //         随机数看转什么弯（在允许的车向范围内，且不准掉头）
+    //             小转弯直接转，添加到另一个路段队列的末尾
+    //             判断自己是否需要减速
+    //                 需要
+    //                     以最大减速度减速即可
+    //                     等待绿灯
+    //                     绿灯亮后以最大加速度进行下面的操作
+    //                 不需要：正常更新
+    //                     假如在 1s 内能到达路口(get_to_intersection), 正常转弯并进入另一条路段队列末尾
+
+    while (!done) {
+        for (int i = 0; i < 33; i++) { // across
+            for (int j = i + 1; j < 33; j++) { // not across
+                if (!isPointOnSegment(crossroads, roads[i].start, roads[i].end) ||
+                    !isPointOnSegment(crossroads, roads[j].start, roads[j].end))
+                    continue; // 不存在的交点（交点存在于线段外）
+                Point dir = sites[roads[i].start] - sites[roads[i].end];
+                if (crossroads == roads[i].start) {
+                    for (int k = 1; k <= nc; k++) {
+                        if (isPointOnSegment(cs[k].center, sites[roads[i].start], sites[roads[i].end]) &&
+                            Dot(dir, cs[k].Direction) > 0 && car_turning[k] == 0) { // 准备转弯
+                            if (get_to_intersection(cs[k])) {
+                                int crsrd_num, sta;
+                                for (int z = 0; z < 20; z++)
+                                    if (sites[z] == crossroads) {
+                                        crsrd_num = z;
+                                        break;
+                                    }
+                                for (int z = 0; z < 4; z++) {
+                                    if (i == crosses[crsrd_num].outrd[z]) {
+                                        sta = z;
+                                        break;
+                                    }
+                                }
+                                turn Turning = rand_turn(crsrd_num, sta);
+                                car_turning[k] = Turning.turn_time;
+                                cs[k].rd = Turning.to_num;
+                                if (crossroads == sites[roads[cs[k].rd].start]) cs[k].Direction =
+                                                                                        sites[roads[cs[k].rd].end] -
+                                                                                        sites[roads[cs[k].rd].start];
+                                else cs[k].Direction = sites[roads[cs[k].rd].start] - sites[roads[cs[k].rd].end];
+                            }
+                        } else if (isPointOnSegment(cs[i].center, sites[roads[i].start], sites[roads[i].end]) &&
+                                   Dot(dir, cs[i].Direction) > 0 && car_turning[i] != 0) {
+                            car_turning[i] -= 0.5;
+                        } else {
+                            if ( /*能通过*/ 1) { // 红绿灯能通过 条件占位
+                                cs[k].center = cs[k].center + (cs[k].Direction / 2);
+                            } else { // 无法通过，减速
+                                if (decelerate_time[k] > 0) {
+                                    cs[k].Direction = cs[k].Direction * (Length(cs[k].Direction) + max_acceleration) /
+                                                      Length(cs[k].Direction);
+                                }
+                                if (point_dist(cs[k].center, sites[roads[i].start]) <=
+                                    min_decelarate_dis(Length(cs[k].Direction), max_acceleration)) {
+                                    decelerate_time[k] = Length(cs[k].Direction), max_acceleration;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 /*
@@ -404,30 +551,35 @@ void update() {
 */
 
 int main() {
-//    Point test=Point(1.5,2.5);
-//    cout << dcmp(-0.1) << endl;
-//    cout << dcmp(1e-11) << endl;
-//    cout << test.x << " " << test.y << endl;
-//    Point new_test = read_point();
-//    cout << new_test.x << endl;
+    // Point test=Point(1.5,2.5);
+    // cout << dcmp(-0.1) << endl;
+    // cout << dcmp(1e-11) << endl;
+    // cout << test.x << " " << test.y << endl;
+    // Point new_test = read_point();
+    // cout << new_test.x << endl;
 
     for (int i = 0; i < LEN_OF_SITES; i++) {
         sites[i] = Point(site_x[i], site_y[i]);
     }
 
-//    for (int i = 0; i < LEN_OF_SITES; i++) {
-//        cout << char(65 + i) << "\t" << sites[i].x << "\t" << sites[i].y << endl;
-//    }
-
+    // for (int i = 0; i < LEN_OF_SITES;i++)
+    // {
+    //     cout <<char(65+i)<<"\t"<< sites[i].x << "\t" << sites[i].y << endl;
+    // }
+    for (int i = 0; i < 3; i++) {
+        roads[i].lim_v = 70.0 / 3.6;
+    }
+    for (int i = 3; i < 33; i++) {
+        roads[i].lim_v = 50.0 / 3.6;
+    }
     Car test(sites[14], Point(3.3, 0));
-//    cout << test.center.x << endl
-//         << test.center.y << endl
-//         << test.Direction.x << endl
-//         << test.Direction.y << endl;
-//    cout << is_out(test);
+    // cout << test.center.x << endl
+    //      << test.center.y << endl
+    //      << test.Direction.x << endl
+    //      << test.Direction.y << endl;
+    // cout << is_out(test);
     cout << is_out(test) << endl;
-//    cout << is_same_dir(Vector(1, 0), Vector(9, 0));
-
+    // cout << is_same_dir(Vector(1, 0), Vector(9, 0));
 
     return 0;
 }
