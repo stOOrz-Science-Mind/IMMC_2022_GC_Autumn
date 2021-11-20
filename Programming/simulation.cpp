@@ -10,179 +10,169 @@
 
 using namespace std;
 
-struct Point
-{
+struct Point {
     double x, y;
-    Point (double x = 0, double y = 0):x(x),y(y)
-    {
+
+    Point(double x = 0, double y = 0) : x(x), y(y) {
     }
 };
+
 typedef Point Vector;
 
-struct Car
-{
+struct Car {
     Point center;
     Vector Direction;
     int rd;
-    Car(Point center=Point(0,0),Vector Direction=Point(0,0)):center(center),Direction(Direction)
-    {
+
+    Car(Point center = Point(0, 0), Vector Direction = Point(0, 0)) : center(center), Direction(Direction) {
     }
-    double acceleration=0;
+
+    double acceleration = 0;
 };
 
-Vector operator + (Vector A, Vector B)
-{
-    return Vector(A.x+B.x,A.y+B.y);
+Vector operator+(Vector A, Vector B) {
+    return Vector(A.x + B.x, A.y + B.y);
 }
-Vector operator - (Vector A, Vector B)
-{
-    return Vector(A.x-B.x,A.y-B.y);
+
+Vector operator-(Vector A, Vector B) {
+    return Vector(A.x - B.x, A.y - B.y);
 }
-Vector operator * (Vector A, double p)
-{
-    return Vector(A.x*p,A.y*p);
+
+Vector operator*(Vector A, double p) {
+    return Vector(A.x * p, A.y * p);
 }
-Vector operator / (Vector A, double p)
-{
-    return Vector(A.x/p,A.y/p);
+
+Vector operator/(Vector A, double p) {
+    return Vector(A.x / p, A.y / p);
 }
-bool operator < (const Point &a, const Point &b)
-{
+
+bool operator<(const Point &a, const Point &b) {
     return a.x < b.x || (a.x == b.x && a.y < b.y);
 }
 
-double Dot(Vector A, Vector B)
-{
-    return A.x*B.x + A.y*B.y;
-}
-double Length(Vector A)
-{
-    return sqrt(Dot(A,A));
-}
-double Angle(Vector A, Vector B)
-{
-    return acos(Dot(A,B))/Length(A)/Length(B);
-}
-double Cross(Vector A, Vector B)
-{
-    return A.x*B.y - A.y*B.x;
-}
-double Area2(Point A, Point B, Point C)
-{
-    return Cross(B-A, C-A);
+double Dot(Vector A, Vector B) {
+    return A.x * B.x + A.y * B.y;
 }
 
-Vector Rotate(Vector A, double rad)
-{
-    return Vector(A.x*cos(rad)-A.y*sin(rad), A.x*sin(rad)+A.y*cos(rad));
+double Length(Vector A) {
+    return sqrt(Dot(A, A));
 }
+
+double Angle(Vector A, Vector B) {
+    return acos(Dot(A, B)) / Length(A) / Length(B);
+}
+
+double Cross(Vector A, Vector B) {
+    return A.x * B.y - A.y * B.x;
+}
+
+double Area2(Point A, Point B, Point C) {
+    return Cross(B - A, C - A);
+}
+
+Vector Rotate(Vector A, double rad) {
+    return Vector(A.x * cos(rad) - A.y * sin(rad), A.x * sin(rad) + A.y * cos(rad));
+}
+
 // please make sure its not a zero vector!
-Vector Normal(Vector A)
-{
+Vector Normal(Vector A) {
     double L = Length(A);
-    return Vector(-A.y/L,A.x/L);
+    return Vector(-A.y / L, A.x / L);
 }
-Vector Format(const Vector &A)
-{
-    double L=Length(A);
-    return Vector(A.x/L,A.y/L);
+
+Vector Format(const Vector &A) {
+    double L = Length(A);
+    return Vector(A.x / L, A.y / L);
 }
 
 const double eps = 1e-10;
-int dcmp(double x)
-{
-    if(fabs(x) < eps)
+
+int dcmp(double x) {
+    if (fabs(x) < eps)
         return 0;
     else
         return x < 0 ? -1 : 1;
 }
 
-bool operator == (const Point &a, const Point &b)
-{
-    return dcmp(a.x-b.x)==0 && dcmp(a.y-b.y)==0;
+bool operator==(const Point &a, const Point &b) {
+    return dcmp(a.x - b.x) == 0 && dcmp(a.y - b.y) == 0;
 }
-Point read_point()
-{
+
+Point read_point() {
     double x, y;
     cin >> x >> y;
     return Vector(x, y);
 }
+
 //
-Point GetLineIntersection (Point P, Vector v, Point Q, Vector w)
-{
-    Vector u=P-Q;
-    double t = Cross(w,u)/Cross(v,w);
-    return P+v*t;
+Point GetLineIntersection(Point P, Vector v, Point Q, Vector w) {
+    Vector u = P - Q;
+    double t = Cross(w, u) / Cross(v, w);
+    return P + v * t;
 }
 
-double DistanceToLine (Point P, Point A, Point B)
-{
-    Vector v1 = B-A,v2=P-A;
-    return fabs(Cross(v1,v2))/Length(v1);
+double DistanceToLine(Point P, Point A, Point B) {
+    Vector v1 = B - A, v2 = P - A;
+    return fabs(Cross(v1, v2)) / Length(v1);
 }
-double DistanceToSegment (Point P, Point A, Point B)
-{
-    if (A==B)
-        return Length(P-A);
-    Vector v1=B-A,v2=P-A,v3=P-B;
-    if(dcmp(Dot(v1,v2))<0)
+
+double DistanceToSegment(Point P, Point A, Point B) {
+    if (A == B)
+        return Length(P - A);
+    Vector v1 = B - A, v2 = P - A, v3 = P - B;
+    if (dcmp(Dot(v1, v2)) < 0)
         return Length(v2);
-    else if(dcmp(Dot(v1,v3))>0)
+    else if (dcmp(Dot(v1, v3)) > 0)
         return Length(v3);
     else
-        return fabs(Cross(v1,v2))/Length(v1);
+        return fabs(Cross(v1, v2)) / Length(v1);
 }
 
-Point GetLineProjection(const Point& P, const Point& A, const Point& B)
-{
+Point GetLineProjection(const Point &P, const Point &A, const Point &B) {
     Vector v = B - A;
     return A + v * (Dot(v, P - A) / Dot(v, v));
 }
 
-bool SegmentProperIntersection(const Point& a1, const Point& a2, const Point& b1, const Point& b2)
-{
+bool SegmentProperIntersection(const Point &a1, const Point &a2, const Point &b1, const Point &b2) {
     double c1 = Cross(a2 - a1, b1 - a1), c2 = Cross(a2 - a1, b2 - a1),
-    c3 = Cross(b2 - b1, a1 - b1), c4 = Cross(b2 - b1, a2 - b1);
+            c3 = Cross(b2 - b1, a1 - b1), c4 = Cross(b2 - b1, a2 - b1);
     return dcmp(c1) * dcmp(c2) < 0 && dcmp(c3) * dcmp(c4) < 0;
 }
 
-bool isPointOnSegment(const Point& p, const Point& a1, const Point& a2)
-{
+bool isPointOnSegment(const Point &p, const Point &a1, const Point &a2) {
     return dcmp(Cross(a1 - p, a2 - p)) == 0 && dcmp(Dot(a1 - p, a2 - p)) < 0;
 }
-double PolygonArea(Point* p, int n)
-{
+
+double PolygonArea(Point *p, int n) {
     double area = 0;
     for (int i = 1; i < n - 1; i++)
         area += Cross(p[i] - p[0], p[i + 1] - p[0]);
     return area / 2;
 }
 
-struct Circle
-{
+struct Circle {
     Point c;
     double r;
-    Circle(Point c = Point(), double r = 0) :c(c), r(r) {}
-    inline Point point(double a)
-    {
+
+    Circle(Point c = Point(), double r = 0) : c(c), r(r) {}
+
+    inline Point point(double a) {
         return Point(c.x + cos(a) * r, c.y + sin(a) * r);
     }
 };
-Circle read_circle()
-{
+
+Circle read_circle() {
     Circle C;
     scanf("%lf%lf%lf", &C.c.x, &C.c.y, &C.r);
     return C;
 }
 
-int GetLineCircleIntersection(const Point& A, const Point& B, const Circle& C, vector<Point>& sol)
-{
+int GetLineCircleIntersection(const Point &A, const Point &B, const Circle &C, vector <Point> &sol) {
     double d = DistanceToLine(C.c, A, B);
     int mode = dcmp(d - C.r);
     if (mode > 0) return 0;
     Point P = GetLineProjection(C.c, A, B);
-    if (mode == 0)
-    {
+    if (mode == 0) {
         sol.push_back(P);
         return 1;
     }
@@ -193,8 +183,7 @@ int GetLineCircleIntersection(const Point& A, const Point& B, const Circle& C, v
     return 2;
 }
 
-int GetCircleCircleIntersection (Circle C1, Circle C2, vector<Point>& sol)
-{
+int GetCircleCircleIntersection(Circle C1, Circle C2, vector <Point> &sol) {
     if (C1.r < C2.r) swap(C1, C2);
     double D = Length(C1.c - C2.c);
     if (dcmp(D) == 0)
@@ -212,14 +201,12 @@ int GetCircleCircleIntersection (Circle C1, Circle C2, vector<Point>& sol)
     return 2;
 }
 
-inline int GetTangents (const Point P, const Circle C, vector<Point>& v)
-{
+inline int GetTangents(const Point P, const Circle C, vector <Point> &v) {
     Vector u = C.c - P;
     double dist = Length(u);
     int mode = dcmp(dist - C.r);
     if (mode < 0) return 0;
-    if (mode == 0)
-    {
+    if (mode == 0) {
         v.push_back(P + Normal(u));
         return 1;
     }
@@ -229,56 +216,54 @@ inline int GetTangents (const Point P, const Circle C, vector<Point>& v)
 }
 
 double site_x[20] =
-    {
-        0.00,
-        151.17,
-        371.11,
-        0.00,
-        151.17,
-        371.11,
-        0.00,
-        151.17,
-        371.11,
-        0.00,
-        151.17,
-        371.11,
-        0.00,
-        151.17,
-        251.26,
-        0.00,
-        151.17
-    };
+        {
+                0.00,
+                151.17,
+                371.11,
+                0.00,
+                151.17,
+                371.11,
+                0.00,
+                151.17,
+                371.11,
+                0.00,
+                151.17,
+                371.11,
+                0.00,
+                151.17,
+                251.26,
+                0.00,
+                151.17
+        };
 double site_y[20] =
-    {
-        295.19,
-        295.19 ,
-        295.19 ,
-        224.14 ,
-        224.14 ,
-        224.14 ,
-        170.97 ,
-        170.97 ,
-        170.97 ,
-        107.43 ,
-        107.43 ,
-        107.43 ,
-        48.89 ,
-        48.89 ,
-        48.89 ,
-        0.00 ,
-        0.00
-    };
+        {
+                295.19,
+                295.19,
+                295.19,
+                224.14,
+                224.14,
+                224.14,
+                170.97,
+                170.97,
+                170.97,
+                107.43,
+                107.43,
+                107.43,
+                48.89,
+                48.89,
+                48.89,
+                0.00,
+                0.00
+        };
 const int LEN_OF_SITES = 17;
 // from A to Q, 17 points in total
 
-struct Road
-{
+struct Road {
     int start;
     int end;
     Car first_car;
 
-    Road(int start, int end):start(start),end(end)
-    {
+    Road(int start, int end) : start(start), end(end) {
     }
 };
 
@@ -286,41 +271,41 @@ Point sites[20];
 Car cs[1005];
 
 Road roads[33] =
-    {
-        Road(2, 1),
-        Road(1, 0),
-        Road(3, 4),
-        Road(4, 5),
-        Road(6, 7),
-        Road(7, 8),
-        Road(8, 7),
-        Road(7, 6),
-        Road(9, 10),
-        Road(10, 11),
-        Road(11, 10),
-        Road(10, 9),
-        Road(12, 13),
-        Road(13, 14),
-        Road(15, 16),
-        Road(0, 3),
-        Road(3, 6),
-        Road(1, 4),
-        Road(4, 7),
-        Road(7, 10),
-        Road(10, 13),
-        Road(13, 16),
-        Road(16, 13),
-        Road(13, 10),
-        Road(10, 7),
-        Road(7, 4),
-        Road(4, 1),
-        Road(15, 12),
-        Road(2, 5),
-        Road(5, 8),
-        Road(8, 11),
-        Road(16, 14),
-        Road(14, 11)
-    };
+        {
+                Road(2, 1),
+                Road(1, 0),
+                Road(3, 4),
+                Road(4, 5),
+                Road(6, 7),
+                Road(7, 8),
+                Road(8, 7),
+                Road(7, 6),
+                Road(9, 10),
+                Road(10, 11),
+                Road(11, 10),
+                Road(10, 9),
+                Road(12, 13),
+                Road(13, 14),
+                Road(15, 16),
+                Road(0, 3),
+                Road(3, 6),
+                Road(1, 4),
+                Road(4, 7),
+                Road(7, 10),
+                Road(10, 13),
+                Road(13, 16),
+                Road(16, 13),
+                Road(13, 10),
+                Road(10, 7),
+                Road(7, 4),
+                Road(4, 1),
+                Road(15, 12),
+                Road(2, 5),
+                Road(5, 8),
+                Road(8, 11),
+                Road(16, 14),
+                Road(14, 11)
+        };
 
 const double UPPER = 295.59;
 const double LOWER = 0.00;
@@ -337,27 +322,25 @@ const Vector TO_DOWN = Vector(0, -1);
 const Vector TO_LEFT = Vector(-1, 0);
 const Vector TO_RIGHT = Vector(1, 0);
 
-bool is_same_dir(Vector a, Vector b)
-{
-    if(Dot(a,b)==Length(a)*Length(b))
-    {
+bool is_same_dir(Vector a, Vector b) {
+    if (Dot(a, b) == Length(a) * Length(b)) {
         return true;
     }
     return false;
 }
 
-bool is_out(Car vehicle)
-{
+bool is_out(Car vehicle) {
     // bool c1 = (vehicle.center.y == UPPER && vehicle.center.x >= LEFT && vehicle.center.x <= RIGHT);
     // bool c2 = (vehicle.center.y == LOWER && vehicle.center.x >= LEFT && vehicle.center.x <= SEP);
     // bool c3 = (vehicle.center.x >= SEP && vehicle.center.x <= RIGHT && vehicle.center.y < 0.49 * vehicle.center.x - 73.8);
     // bool c4 = (vehicle.center.x == LEFT && vehicle.center.y >= LOWER && vehicle.center.y <= UPPER);
     // bool c5 = (vehicle.center.x == RIGHT && vehicle.center.y >= SEP2 && vehicle.center.y <= UPPER);
-    bool c1 = (vehicle.center.y >= UPPER && is_same_dir(vehicle.Direction,TO_UP));
-    bool c2 = (vehicle.center.y <= LOWER && is_same_dir(vehicle.Direction,TO_DOWN));
-    bool c3 = (vehicle.center.x >= SEP && vehicle.center.x <= RIGHT && vehicle.center.y < 0.49 * vehicle.center.x - 73.8 && is_same_dir(vehicle.Direction,TO_RIGHT));
-    bool c4 = (vehicle.center.x <= LEFT && is_same_dir(vehicle.Direction,TO_LEFT));
-    bool c5 = (vehicle.center.x >= RIGHT && is_same_dir(vehicle.Direction,TO_RIGHT));
+    bool c1 = (vehicle.center.y >= UPPER && is_same_dir(vehicle.Direction, TO_UP));
+    bool c2 = (vehicle.center.y <= LOWER && is_same_dir(vehicle.Direction, TO_DOWN));
+    bool c3 = (vehicle.center.x >= SEP && vehicle.center.x <= RIGHT &&
+               vehicle.center.y < 0.49 * vehicle.center.x - 73.8 && is_same_dir(vehicle.Direction, TO_RIGHT));
+    bool c4 = (vehicle.center.x <= LEFT && is_same_dir(vehicle.Direction, TO_LEFT));
+    bool c5 = (vehicle.center.x >= RIGHT && is_same_dir(vehicle.Direction, TO_RIGHT));
     return (c1 || c2 || c3 || c4 || c5);
 }
 
@@ -367,44 +350,38 @@ bool is_out(Car vehicle)
 每隔1秒更新一次数据
 */
 
-Car get_first(int rd_number)
-{
+Car get_first(int rd_number) {
 
 }// 找到该路段最靠前的一辆车
 
-int get_num(int rd_number)
-{
+int get_num(int rd_number) {
 
 }// 输出该路段有多少辆车
 
-bool get_to_intersection(Car cr)
-{
+bool get_to_intersection(Car cr) {
 
 }// 判断车辆是否到达路口
 
 
 // 1s update 一次
-void update()
-{
+void update() {
     // 从 get_first(...) 从前往后更新
-        // 假如自己不是 prev
-            // 假如 prev 需要减速
-                // 根据公式1计算该车的相应最大减速度，并把所有与该车有关的状态更新
-            // 假如 prev 正常行驶
-                // 计算 t 并判断自己是否需要减速
-                    // 假如需要减速, 更新减速度为公式2
-        // 假如自己是 prev
-            // 随机数看转什么弯（在允许的车向范围内，且不准掉头）
-                // 小转弯直接转，添加到另一个路段队列的末尾
-                // 判断自己是否需要减速
-                    // 需要
-                        // 以最大减速度减速即可
-                        // 等待绿灯
-                        // 绿灯亮后以最大加速度进行下面的操作
-                    // 不需要：正常更新
-                        // 假如在 1s 内能到达路口(get_to_intersection), 正常转弯并进入另一条路段队列末尾
-
-
+    //     假如自己不是 prev
+    //         假如 prev 需要减速
+    //             根据公式1计算该车的相应最大减速度，并把所有与该车有关的状态更新
+    //         假如 prev 正常行驶
+    //             计算 t 并判断自己是否需要减速
+    //     假如需要减速, 更新减速度为公式2
+    //         假如自己是 prev
+    //             随机数看转什么弯（在允许的车向范围内，且不准掉头）
+    //                 小转弯直接转，添加到另一个路段队列的末尾
+    //                 判断自己是否需要减速
+    //                     需要
+    //                         以最大减速度减速即可
+    //                         等待绿灯
+    //                         绿灯亮后以最大加速度进行下面的操作
+    //                     不需要：正常更新
+    //                         假如在 1s 内能到达路口(get_to_intersection), 正常转弯并进入另一条路段队列末尾
 }
 
 /*
@@ -414,18 +391,7 @@ void update()
 3. wifi 分配按照二分图匹配算法来
 */
 
-
-
-
-
-
-
-
-
-
-
-int main()
-{
+int main() {
     // Point test=Point(1.5,2.5);
     // cout << dcmp(-0.1) << endl;
     // cout << dcmp(1e-11) << endl;
@@ -433,8 +399,7 @@ int main()
     // Point new_test = read_point();
     // cout << new_test.x << endl;
 
-    for(int i = 0; i < LEN_OF_SITES;i++)
-    {
+    for (int i = 0; i < LEN_OF_SITES; i++) {
         sites[i] = Point(site_x[i], site_y[i]);
     }
 
@@ -443,7 +408,7 @@ int main()
     //     cout <<char(65+i)<<"\t"<< sites[i].x << "\t" << sites[i].y << endl;
     // }
 
-    Car test(sites[14],Point(3.3,0));
+    Car test(sites[14], Point(3.3, 0));
     // cout << test.center.x << endl
     //      << test.center.y << endl
     //      << test.Direction.x << endl
