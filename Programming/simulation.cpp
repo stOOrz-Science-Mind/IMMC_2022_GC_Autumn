@@ -377,23 +377,23 @@ bool get_to_intersection(Car cr) { // 判断车辆是否到达路口
 
 // 1s update 一次
 void update() {
-    // 从 get_first(...) 从前往后更新
-    //     假如自己不是 prev
-    //         假如 prev 需要减速
-    //             根据公式1计算该车的相应最大减速度，并把所有与该车有关的状态更新
-    //         假如 prev 正常行驶
-    //             计算 t 并判断自己是否需要减速
-    //     假如需要减速, 更新减速度为公式2
-    //         假如自己是 prev
-    //             随机数看转什么弯（在允许的车向范围内，且不准掉头）
-    //                 小转弯直接转，添加到另一个路段队列的末尾
-    //                 判断自己是否需要减速
-    //                     需要
-    //                         以最大减速度减速即可
-    //                         等待绿灯
-    //                         绿灯亮后以最大加速度进行下面的操作
-    //                     不需要：正常更新
-    //                         假如在 1s 内能到达路口(get_to_intersection), 正常转弯并进入另一条路段队列末尾
+// 从 get_first(...) 从前往后更新
+//     假如自己不是 prev
+//         假如 prev 需要减速
+//             根据公式1计算该车的相应最大减速度，并把所有与该车有关的状态更新
+//         假如 prev 正常行驶
+//             计算 t 并判断自己是否需要减速
+//     假如需要减速, 更新减速度为公式2
+//         假如自己是 prev
+//             随机数看转什么弯（在允许的车向范围内，且不准掉头）
+//                 小转弯直接转，添加到另一个路段队列的末尾
+//                 判断自己是否需要减速
+//                     需要
+//                         以最大减速度减速即可
+//                         等待绿灯
+//                         绿灯亮后以最大加速度进行下面的操作
+//                     不需要：正常更新
+//                         假如在 1s 内能到达路口(get_to_intersection), 正常转弯并进入另一条路段队列末尾
 }
 
 /*
@@ -404,30 +404,29 @@ void update() {
 */
 
 int main() {
-    // Point test=Point(1.5,2.5);
-    // cout << dcmp(-0.1) << endl;
-    // cout << dcmp(1e-11) << endl;
-    // cout << test.x << " " << test.y << endl;
-    // Point new_test = read_point();
-    // cout << new_test.x << endl;
+//    Point test=Point(1.5,2.5);
+//    cout << dcmp(-0.1) << endl;
+//    cout << dcmp(1e-11) << endl;
+//    cout << test.x << " " << test.y << endl;
+//    Point new_test = read_point();
+//    cout << new_test.x << endl;
 
     for (int i = 0; i < LEN_OF_SITES; i++) {
         sites[i] = Point(site_x[i], site_y[i]);
     }
 
-    // for (int i = 0; i < LEN_OF_SITES;i++)
-    // {
-    //     cout <<char(65+i)<<"\t"<< sites[i].x << "\t" << sites[i].y << endl;
-    // }
+//    for (int i = 0; i < LEN_OF_SITES; i++) {
+//        cout << char(65 + i) << "\t" << sites[i].x << "\t" << sites[i].y << endl;
+//    }
 
     Car test(sites[14], Point(3.3, 0));
-    // cout << test.center.x << endl
-    //      << test.center.y << endl
-    //      << test.Direction.x << endl
-    //      << test.Direction.y << endl;
-    // cout << is_out(test);
+//    cout << test.center.x << endl
+//         << test.center.y << endl
+//         << test.Direction.x << endl
+//         << test.Direction.y << endl;
+//    cout << is_out(test);
     cout << is_out(test) << endl;
-    // cout << is_same_dir(Vector(1, 0), Vector(9, 0));
+//    cout << is_same_dir(Vector(1, 0), Vector(9, 0));
 
 
     return 0;
