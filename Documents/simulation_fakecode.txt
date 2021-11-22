@@ -1,0 +1,21 @@
+def update:
+    time += 0.5 #updating once every half a second
+    for k in cars: # run through all the cars
+        if car No.k is going to start turning at this time:
+            pick a random direction at its crossroad for the car to go to
+            decide the time the car spends on this turning (depending on the direction of the turning)
+        if car No.k is already turning at this time:
+            we assume that it stops in the middle of the road, regardless of traffic lights
+        else: #car No.k is in the middle of a road
+            calculate the location of this car at this time
+            find the coming traffic light
+            if this car cannot pass the traffic light:
+                calculate the minimum deceleration distance according to the original speed of the car and its maximum deceleration rate
+                if the distance between the car and the light is no longer than this distance:
+                    the car decelerates in its maximum decelerate rate
+                else:
+                    the car calculates its maximum speed and then accelerate to this speed in the maximum acceleration rate and then decelerate its speed to zero (and just stops at the red light)
+            else:
+                if the distance between the car and the traffic light is no longer than the distance the car goes in half a second:
+                    # it will turn in the coming half second
+                    label it as it would turn in the next half a second

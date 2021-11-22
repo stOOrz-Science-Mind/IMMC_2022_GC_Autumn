@@ -148,15 +148,17 @@ widths = [5,
 
 lines = [LineString([points[i], points[j]]) for i, j in zip(i1s, i2s)]
 
-widlines = [lines[i].buffer(widths[i], cap_style=1) for i in range(0, 33)]
+roadnum = 33
+
+widlines = [lines[i].buffer(widths[i], cap_style=1) for i in range(0, roadnum)]
 unionline = []
-for i in range(0, 33):
+for i in range(0, roadnum):
     if i == 0:
         unionline.append(widlines[0])
     else:
         unionline.append(unionline[i - 1].union(widlines[i]))
 
-multiStreetsArea = unionline[32]
+multiStreetsArea = unionline[roadnum - 1]
 
 lampx = [-16.8772,
          -16.5836,
@@ -512,7 +514,7 @@ gpd.GeoSeries(multiWifiArea).plot(ax = ax, color = "yellow", alpha = 0.25)
 
 ax.scatter(lampx, lampy, s = ss)
 
-for i in range(0, 33):
+for i in range(0, roadnum):
     x, y = widlines[i].exterior.xy
     ax.plot(x, y, c = "black")
 
