@@ -1,0 +1,57 @@
+​	In the dynamic model, we built a simulation system of car and lamppost distribution using C++ and Python for data analysis and graphing. The simulation of the continual process can be divided into the following parts:
+
+​	Step 1. We set up several functions concerning cars, roads, and traffic lights using C++. As for the dynamic process, the real-time performance of cars is simulated.
+
+
+
+1. After close observation and reasonable extrapolation, we devised a system of constants in our program.
+
+$\tau _{L_1\rightarrow L_2,R}$​​ the red-light interval of road $L_1$ at its intersection with road $L_2$​.
+
+$\tau _{L_1\rightarrow L_2,G}$​ the green-light interval of road $L_1$​ at its intersection with road $L_2$​​.
+
+$W_{L}$​​ the width of road $L$​.​
+
+$T_L$​ the duration of a total light period.
+
+$V_{M,L}$​​ the maximum velocity of cars on road $L$​​.
+
+$N_{C,L}$​​ the number of cars on road $L$​​​.
+
+$T_{I,turn}$​ the turning time of $turn$​​​ (left, right, going straight or turning around) at intersection $I$​​.
+
+- Assumptions:
+
+  1. $\forall L, V_{M,L}\xlongequal{\mathrm{always}}50\mathrm{km}/\mathrm{h}$
+
+     *Justification: By searching for data on [       (wikipedia)       ], we found out that all roads of such scale in our model have a speed limit of $50\mathrm{km}/\mathrm{h}$, for given the fact that only the bottom of Gloucester Road is connected with the rest of the map.*
+
+  2. The car inflow and outflow of the selected area is always at an equilibrium.
+
+     *Justification: Or else, $N_{C,L}$​​​​​​ is either consistently decreasing or increasing, which, given the isolation and the areal limitations of the model, is apparently unreasonable.*
+
+  3. $\forall I$, the same *turns* derive the same $T_{I,turn}$, which, in detail, $\forall I,T_{I,turn}=\begin{cases}
+     	0.5,turn=\mathrm{left}\\
+     	1.5,turn=\mathrm{right}\\
+     	5,turn=\text{straight or turn around}\\
+     \end{cases}$
+
+     *Justification: All the roads are of approximately the same width, thus deriving the equation above from Assumption 1.*
+
+  4. 
+
+$\dfrac{\tau _{L_1\rightarrow L_2,G}}{\tau _{L_2\rightarrow L_1,G}}\propto \dfrac{W_{L_1}}{W_{L_2}} (1)$​​​
+
+$\forall L_1, L_2$​ as lights, $\tau _{L_1\rightarrow L_2,G}+\tau _{L_1\rightarrow L_2,R}\xlongequal{\mathrm{always}}T_L(2)$
+
+*Justification: (2) Apparently maintains the numerical proportion of traffic light intervals as shown in (1), and it is also beneficial to our discrete model, since the timelines of different traffic lights can be easily synchronized.*​​
+
+
+
+# 下面把這個算法的具體過程分類討論，並代入具體的變量計算
+
+we introduced the concept of 'yellow lights' so as to offset the inaccuracy of updating the model discretely: a certain time is given for each vehicle to either decelerate or accelerate at its maximum. 
+
+
+
+​	Step 2. for different states of he output of the dynamic model, we use the Hungarian algorithm to get the optimal connection scheme of cars and tests whether it is optimal.

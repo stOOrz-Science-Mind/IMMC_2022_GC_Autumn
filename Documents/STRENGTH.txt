@@ -1,0 +1,11 @@
+- Efficiency
+
+  In model 2 we modified the highly-efficient Q-learning algorithm, which quickly narrows the range until it gets the optimal result.
+
+  In model 3, the intricate mechanism of the Hungarian algorithm helps us get the result within $\Theta \left( m^2+n \right)$​​, where $m$​​ and $n$​​ respectively refers to the number of vertexes and edges in the diagram.
+
+- Our models are generic.
+
+  Except from the necessary road map data, our model completely depends on the internal algorithms of the system, thus it can be applied to various conditions.
+
+- 
