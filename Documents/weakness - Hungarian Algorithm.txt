@@ -1,0 +1,2 @@
+​	In our dynamic model, the amount of information that each car requires is assumed to be a constant, which, in real life, varies according to the inherent attributions of the car. In this conception, the Hungarian algorithm will simply become a weighed two-dimensional optimization, optimizing car connection and information transferring at the same time. However, the model complexity and processing time will be greatly increased.
+

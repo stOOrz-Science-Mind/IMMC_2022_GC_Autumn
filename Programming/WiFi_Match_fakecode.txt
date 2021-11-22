@@ -1,0 +1,20 @@
+vector<int> lines[1009] #lines[i] refers to the spots that can be linked to the car No. i
+used = [] #judging whether a WiFi spot can be used
+match = [] #record the matching car of each WiFi spot
+def find(car): #judge whether a car can be connected (Hungarian algorithm)
+    for i in lines[car]: #all the spots that can connect with this car
+        if used[car][i] == 0:
+            used[car][i] = 1
+            if match[line[car][i]] == 0 or find(match[line[car][i]]) == 1: #this spot is not connected or this position can be spared
+                match[line[car][i]] = car #record the pair
+                return 1 #this car can be connected
+    return 0 #all the available spots cannot connect the car
+
+while updating the information of the cars:
+    set 4 spots for each WiFi lamp (each spot can link at most one car)
+    for k in cars:
+        for i in WiFi lamps:
+            if the distance between WiFi lamp i and car k is no more than 100m:
+                link an edge between car k and the 4 spots of WiFi lamp i #即：在二分图中连接车与WiFi灯柱的边
+
+
