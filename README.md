@@ -6,7 +6,7 @@ Problem Chosen: A
 
 Title: Smart Lamppost Deployment
 
-Results: Entering International IMMC Competition
+Results: Entering International IMMC Competition, Finalist
 
 Upd on 7 February 2022:
 
